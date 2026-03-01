@@ -15,8 +15,14 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-# 默认字体：微软雅黑
-plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "微软雅黑", "SimHei", "DejaVu Sans"]
+
+# 字体配置：优先使用 Linux 中文字体（Streamlit Cloud），再回退到 Windows 字体
+# packages.txt 需包含 fonts-noto-cjk，否则 Linux 下中文会显示为方框
+plt.rcParams["font.sans-serif"] = [
+    "Noto Sans CJK SC", "Noto Sans CJK JP", "Noto Sans CJK TC",  # Linux (fonts-noto-cjk)
+    "Microsoft YaHei", "微软雅黑", "SimHei",                      # Windows
+    "DejaVu Sans",
+]
 plt.rcParams["axes.unicode_minus"] = False
 # PDF/EPS 使用 TrueType 字体（42），避免 Type 3 字体导致编辑软件无法编辑文字
 plt.rcParams["pdf.fonttype"] = 42
