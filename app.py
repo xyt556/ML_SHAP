@@ -258,7 +258,31 @@ def save_fig_bytes(fig, fmt, plot_name="shap_plot", dpi=150):
     return buf.getvalue(), f"{plot_name}.{ext}"
 
 
+def _check_auth():
+    """密码门控：未配置或已通过则返回 True，否则显示登录框。"""
+    if st.session_state.get("_auth_passed", False):
+        return True
+    # 未配置密码时跳过认证（本地开发）
+    try:
+        pwd = st.secrets.get("app_password", "")
+    except Exception:
+        pwd = ""
+    if not pwd:
+        return True
+    # 显示登录框
+    st.markdown("### 🔐 请输入访问密码")
+    entered = st.text_input("密码", type="password", key="auth_pwd")
+    if st.button("进入", key="auth_btn"):
+        if entered == pwd:
+            st.session_state["_auth_passed"] = True
+            st.rerun()
+        else:
+            st.error("密码错误")
+    st.stop()
+
+
 def main():
+    _check_auth()
     st.markdown('<p class="main-header">📊 机器学习与 SHAP 可解释性分析 @3S&ML</p>', unsafe_allow_html=True)
 
     with st.sidebar:

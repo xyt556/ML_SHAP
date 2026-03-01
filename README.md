@@ -67,6 +67,23 @@ streamlit run app.py --server.port 8502
 - `matplotlib`：绘图后端
 - `openpyxl`：Excel 读取
 
+## 访问控制（Streamlit Cloud 部署）
+
+部署到 Streamlit Cloud 后，可通过密码限制访问：
+
+1. 在 [share.streamlit.io](https://share.streamlit.io) 打开你的应用
+2. 点击 **Settings** → **Secrets**
+3. 在 Secrets 中粘贴（将 `你的密码` 改为实际密码）：
+
+```toml
+app_password = "你的密码"
+```
+
+4. 保存后应用会自动重新部署。访问时需先输入密码才能进入。
+
+- **未配置** `app_password` 时，应用对所有人开放（本地开发默认无密码）
+- 密码仅分享给指定人员即可实现访问控制
+
 ## 注意事项
 
 - 仅使用数值型列作为特征；非数值目标在分类任务中会自动标签编码。
