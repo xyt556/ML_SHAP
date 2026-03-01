@@ -1,2 +1,2 @@
-# Streamlit Cloud 系统依赖：中文字体（解决 Linux 下中文显示为方框）
 fonts-noto-cjk
+
